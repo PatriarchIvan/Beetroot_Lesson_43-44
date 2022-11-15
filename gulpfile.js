@@ -2,14 +2,14 @@ import gulp from 'gulp';
 
 import { path } from './gulp/config/path.js';
 
-import { plugins } from './gulp/config/plugins.js' 
+import { plugins } from './gulp/config/plugins.js'; 
 
 
 global.app = {
     path: path,
     gulp: gulp,
     plugins: plugins
-}
+};
 
 
 // Імпорт тасків -----
@@ -20,6 +20,7 @@ import { scss } from './gulp/tasks/scss.js';
 import { js } from './gulp/tasks/js.js';
 import { images } from './gulp/tasks/images.js';
 import { server } from './gulp/tasks/server.js';
+import { webP } from './gulp/tasks/webpack.js';
 
 
 // Таска для слідкування за файлками ---------
@@ -32,7 +33,14 @@ function watcher() {
 }
 
 // Сценарій виконання тасків -----
-const mainTasks = gulp.parallel(copy, html,js, scss, images);
+const mainTasks = gulp.parallel(copy, html, scss, webP, images);
 const dev = gulp.series(reset, mainTasks, gulp.parallel(watcher, server));
 
 gulp.task('default', dev);
+
+// gulp.task('webpack' ,() => {
+//     return webpack_stream(webpack_config)
+//         .pipe(gulp.dest(`${app.src.build.js}`));
+// });
+
+
